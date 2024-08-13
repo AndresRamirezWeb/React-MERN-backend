@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
@@ -30,9 +31,12 @@ app.listen(process.env.PORT, () => {
   console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
 });
 
-
+app.use('*' , (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 // Rutas de la app
 app.use('/api/auth', require('./routes/auth'));
 
 app.use('/api/events', require('./routes/events'));
+
