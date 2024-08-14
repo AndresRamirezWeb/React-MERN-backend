@@ -26,17 +26,19 @@ app.use(express.static('public'));
 // Lectura y parseo del body
 app.use(express.json());
 
-// Escuchar peticiones
-app.listen(process.env.PORT, () => {
-  console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
-});
+// Rutas de la app
+app.use('/api/auth', require('./routes/auth'));
+
+app.use('/api/events', require('./routes/events'));
 
 app.use('*' , (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-// Rutas de la app
-app.use('/api/auth', require('./routes/auth'));
+// Escuchar peticiones
+app.listen(process.env.PORT, () => {
+  console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
+});
 
-app.use('/api/events', require('./routes/events'));
+
 
